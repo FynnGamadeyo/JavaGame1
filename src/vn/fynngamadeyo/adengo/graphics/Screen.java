@@ -1,16 +1,23 @@
 package vn.fynngamadeyo.adengo.graphics;
 
+import java.util.Random;
+
 public class Screen {
 	private int width, height;
 	public int[] pixels;
 	
-	int xtime,ytime;
-	int counter=0;
+	public int[] tiles = new int[64*64];
 	
+	private Random random = new Random();
+
 	public Screen(int width, int heiht){
 		this.width=width;
 		this.height=heiht;
 		pixels = new int[width*heiht];
+		
+		for(int i=0;i< 64*64;i++){
+			tiles[i] = random.nextInt(0xffffff);
+		}
 	}
 	
 	public void clear(){
@@ -20,15 +27,14 @@ public class Screen {
 	}
 
 	public void render(){
-		counter++;
-		if(counter % 100==0) xtime++;
-		if(counter % 80==0) ytime++;
-		
 		for(int y=0;y<height;y++){
-			if(ytime <0 || ytime >=height) break;
+			if(y <0 || y >=height) break;
 			for(int x=0; x<width;x++){
-				if(xtime <0 || xtime >= width ) break;
-				pixels[x + y * width] = 0xff0ff;
+				if(x <0 || x >= width ) break;
+				// x / 16 equal x >> 4
+				int tileIndex = (x >> 4) + (y >> 4) * 64;
+				
+				pixels[x + y * width] = tiles[tileIndex];
 			}
 		}
 	}
