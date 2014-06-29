@@ -21,6 +21,8 @@ public class Game extends Canvas implements Runnable{
 	public static int height = width/ 16 * 9;
 	static int scale = 3;
 	
+	int x = 0;
+	int y=0;
 	
 	private Thread thread;
 	private boolean running = false;
@@ -54,9 +56,12 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 
+	public void update(){
+		y++;
+		x++;
+	}
+	
 	public void run() {
-		Manager manager = new Manager();
-		
 		long lastTime = System.nanoTime();
 		long timer =  System.currentTimeMillis();
 		
@@ -70,7 +75,7 @@ public class Game extends Canvas implements Runnable{
 			delta += (now-lastTime) / ns;
 			lastTime=now;
 			while(delta >=1){
-				manager.update();
+				update();
 				updates++;
 				delta--;
 			}
@@ -87,7 +92,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		stop();
 	}
-	
+
 	public void render(){
 		BufferStrategy bs = getBufferStrategy();
 		if(bs==null){
@@ -97,7 +102,7 @@ public class Game extends Canvas implements Runnable{
 		
 		screen.clear();
 		
-		screen.render();
+		screen.render(x,y);
 		
 		for(int i=0;i<pixels.length;i++){
 			pixels[i]=screen.pixels[i];
