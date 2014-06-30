@@ -11,6 +11,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import vn.fynngamadeyo.adengo.graphics.Screen;
+import vn.fynngamadeyo.adengo.input.Keyboard;
 
 public class Game extends Canvas implements Runnable{
 	
@@ -23,7 +24,7 @@ public class Game extends Canvas implements Runnable{
 	
 	int x = 0;
 	int y=0;
-	
+	private Keyboard key;
 	private Thread thread;
 	private boolean running = false;
 	
@@ -36,9 +37,12 @@ public class Game extends Canvas implements Runnable{
 	public Game(){
 		Dimension size = new Dimension(width*scale, height*scale);
 		setPreferredSize(size);
-		screen = new Screen(this.width,this.height);
 		
+		screen = new Screen(this.width,this.height);
 		frame = new JFrame();
+		
+		key = new Keyboard();
+		addKeyListener(key);
 	}
 	
 	public synchronized void start(){
@@ -57,6 +61,7 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	public void update(){
+		key.update();
 		y++;
 		x++;
 	}
