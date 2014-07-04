@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 public class SpriteSheet {
 	
 	private String path;
-	private final int SIZE;
+	public final int SIZE;
 	public int[] pixels;
 	
 	public SpriteSheet(String path, int size){
@@ -19,12 +19,11 @@ public class SpriteSheet {
 	}
 
 	private void load(){
-		
 		try {
 			BufferedImage image = ImageIO.read(SpriteSheet.class.getResource(this.path));
 			int width = image.getWidth();
 			int height = image.getHeight();
-			image.getRGB(0, 0,image.getWidth();,image.getHeight();,pixels,0,width);
+			image.getRGB(0, 0,width,height,pixels,0,width);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
