@@ -2,10 +2,12 @@ package vn.fynngamadeyo.adengo.graphics;
 
 public class Sprite {
 	
-	private final int SIZE;
+	public final int SIZE;
 	private int x,y;
 	public int pixels[];
 	private SpriteSheet sheet;
+	
+	public static Sprite grass = new Sprite(16,SpriteSheet.tiles,0,0);
 	
 	
 	public Sprite(int size,SpriteSheet sheet , int x, int y){
